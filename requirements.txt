@@ -1,0 +1,7 @@
+lifelines
+matplotlib
+Pillow
+psutil
+tabulate
+tqdm
+viridicle
