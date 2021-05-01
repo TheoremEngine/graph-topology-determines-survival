@@ -176,6 +176,7 @@ if __name__ == '__main__':
             plot.plot(
                 _ms,
                 [p[-1] for p in _pas],
+                utils.WIDTH_STYLES[width],
                 color=utils.WIDTH_COLORS[width],
                 label=f'{width}x{width}'
             )

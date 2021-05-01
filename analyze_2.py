@@ -7,10 +7,8 @@ experiments where it is not.
 
 import argparse
 from collections import Counter, defaultdict
-import os
 
 import matplotlib.pyplot as plot
-from tabulate import tabulate
 
 import utils
 
@@ -21,6 +19,7 @@ if __name__ == '__main__':
     parser.add_argument('out_path', type=str, help='Path to write image to')
     parser.add_argument('pattern', type=str, help='Pattern to analyze')
     parser.add_argument('--allowed-startup-time', type=float, default=5)
+    parser.add_argument('--include-legend', action='store_true')
     args = parser.parse_args()
 
     # Load, clean, and aggergate experiments
@@ -95,6 +94,7 @@ if __name__ == '__main__':
         plot.plot(
             mobilities,
             medians,
+            utils.WIDTH_STYLES[width],
             label=f'{width}x{width}',
             color=utils.WIDTH_COLORS[width],
         )
@@ -106,8 +106,8 @@ if __name__ == '__main__':
             color=utils.WIDTH_COLORS[width],
         )
 
-    plot.legend()
+    if args.include_legend:
+        plot.legend()
 
-    out_path = os.path.join(args.out_path, f'durations-{args.pattern}.png')
-    plot.savefig(out_path)
+    plot.savefig(args.out_path)
     plot.close()

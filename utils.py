@@ -60,6 +60,12 @@ WIDTH_COLORS = {
     128: 'g',
     256: 'b',
 }
+WIDTH_STYLES = {
+    32: ':',
+    64: '-.',
+    128: '--',
+    256: '-',
+}
 
 MOBILITY_CMAP = matplotlib.cm.ScalarMappable(
     norm=matplotlib.colors.Normalize(1e-4, 8e-4),
