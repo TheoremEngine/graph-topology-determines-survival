@@ -30,6 +30,7 @@ if __name__ == '__main__':
         for key, exps in experiments.items()
     }
     utils.aggregate_experiments(experiments, start_at=0)
+    graph, *_ = list(experiments.keys())[0]
 
     durations, censored = defaultdict(list), defaultdict(list)
     failed_startups = Counter()
@@ -76,7 +77,7 @@ if __name__ == '__main__':
 
     plot.figure(figsize=(6, 6))
     plot.subplot(1, 1, 1).set_ylim((0, 1000))
-    plot.title(args.pattern)
+    plot.title(f'{graph} - {args.pattern}')
     plot.xlabel('Mobility')
     plot.ylabel('Duration')
 
@@ -98,16 +99,22 @@ if __name__ == '__main__':
             label=f'{width}x{width}',
             color=utils.WIDTH_COLORS[width],
         )
-        plot.fill_between(
-            mobilities,
-            ci_up,
-            ci_low,
-            alpha=0.3,
-            color=utils.WIDTH_COLORS[width],
-        )
+        # Sadly, eps does not support transperancy...
+        # plot.fill_between(
+        #     mobilities,
+        #     ci_up,
+        #     ci_low,
+        #     alpha=0.3,
+        #     color=utils.WIDTH_COLORS[width],
+        # )
 
     if args.include_legend:
         plot.legend()
 
+    # Needed to keep captions from spilling off the edge
+    plot.subplots_adjust(
+        wspace=0.0, hspace=0.0,
+        left=0.2, bottom=0.2, right=0.9, top=0.9,
+    )
     plot.savefig(args.out_path)
     plot.close()

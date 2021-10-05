@@ -13,6 +13,7 @@ import math
 import os
 import sys
 
+import matplotlib
 import matplotlib.pyplot as plot
 import numpy as np
 
@@ -89,7 +90,7 @@ if __name__ == '__main__':
     # We only plot survival curves for the largest width.
     width = max(widths)
 
-    # Construct the actual plots. We split these up into separate png files for
+    # Construct the actual plots. We split these up into separate eps files for
     # ease in formatting the TeX.
 
     for graph in graphs:
@@ -110,7 +111,7 @@ if __name__ == '__main__':
             )
 
         plot.tight_layout()
-        path = os.path.join(args.out_path, f'survival_{graph}.png')
+        path = os.path.join(args.out_path, f'survival_{graph}.eps')
         plot.savefig(path)
         plot.close()
 
@@ -120,11 +121,10 @@ if __name__ == '__main__':
     cbar = plot.colorbar(utils.MOBILITY_CMAP, orientation='vertical', cax=ax)
     cbar.set_label('Mobility')
     plot.tight_layout()
-    path = os.path.join(args.out_path, 'survival_colorbar.png')
+    path = os.path.join(args.out_path, 'survival_colorbar.eps')
     plot.savefig(path)
     plot.close()
 
-    '''
     n_g, width = len(graphs), max(widths)
     plot.figure(figsize=(6 * n_g, 6))
     width_ratios = ([4] * n_g) + [0.2]
@@ -152,10 +152,9 @@ if __name__ == '__main__':
     cbar.set_label('Mobility')
 
     plot.tight_layout()
-    path = os.path.join(args.out_path, 'survival.png')
+    path = os.path.join(args.out_path, 'survival.eps')
     plot.savefig(path)
     plot.close()
-    '''
 
     print('Made survival curves.')
 
@@ -194,7 +193,7 @@ if __name__ == '__main__':
 
         plot.tight_layout()
 
-        path = os.path.join(args.out_path, f'extinction_{graph}.png')
+        path = os.path.join(args.out_path, f'extinction_{graph}.eps')
         plot.savefig(path)
         plot.close()
 
